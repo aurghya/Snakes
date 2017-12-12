@@ -8,6 +8,7 @@
 
 using namespace cv;
 using namespace std;
+
 Mat img;
 int len=60*4, dir=2, posx=400, posy=300, *arrx, *arry, scoreold=0,
 fx,fy,fc=1,leninc=20,score=0,oldvalue=10,slim=0,level=4,count=0,
@@ -172,7 +173,7 @@ void gameOver()
 {
   int lennow=len;
   if (slim>10)
-    lennow-=5;
+     lennow-=5;
   int x=arrx[0],y=arry[0];
   for (int i=1;i<lennow;i++)
     if (arrx[i]==x && arry[i]==y)
@@ -256,12 +257,12 @@ int main()
       slim++;
       char ch='d';
       ch=waitKey((101-level*10));
-      if (ch=='p') score++;
+      //if (ch=='p') score++;    //no free score
       if (ch=='\n') exitnow();
       if (ch==' ') fc=1;
       setDir(ch);
       for (int i=1; i<=8+(1.5*level);i++)
-        setPos();
+          setPos();
       gameOver();
       sprint();
       if (showbonus==1)
@@ -271,11 +272,13 @@ int main()
       char adder[4]; itoa(score,adder);
       char s[15]="Score: \0"; strcat(s,adder);//s[7]=(char)(score+'0'); s[8]='\0';
       char sold[17]="Highest score: \0";
-       itoa(scoreold,adder);
-        strcat(sold,adder);// sold[15]=(char)(scoreold+'0'); sold[16]='\0';
+      itoa(scoreold,adder);
+      strcat(sold,adder);// sold[15]=(char)(scoreold+'0'); sold[16]='\0';
       Point p; p.x=0; p.y=20;
       putText(img,s,p,0,0.5,255);
       p.x=630; putText(img,sold,p,0,0.5,255);
+      p.x=300; char lev[20]="Level : \0";itoa(level,adder);strcat(lev,adder);
+      putText(img,lev,p,0,0.5,255);
       imshow("Snakes", img);
     }
 }
